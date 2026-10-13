@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Syllabus Desk</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F5FA;--surface:#FFFFFF;--ink:#17203A;--muted:#5A6482;--line:#D8DEEB;
+  --accent:#2748D8;--accent-ink:#FFFFFF;--paper:#FFFDF6;--rule:#E6E9F2;--margin:#F0A6B8;
+  --mark:rgba(255,214,10,.62);--chip:#EEF1F8;--danger:#B42318;--ok:#0A7F5F;--on:#FFFFFF;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1329;--surface:#171C38;--ink:#ECEFF9;--muted:#9AA3C6;--line:#2B3260;
+    --accent:#8AA2FF;--accent-ink:#0F1329;--paper:#1B2141;--rule:#252C52;--margin:#7A4360;
+    --mark:rgba(255,214,10,.34);--chip:#212849;--danger:#FF8A7A;--ok:#5FD3AB;--on:#FFFFFF;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1329;--surface:#171C38;--ink:#ECEFF9;--muted:#9AA3C6;--line:#2B3260;
+  --accent:#8AA2FF;--accent-ink:#0F1329;--paper:#1B2141;--rule:#252C52;--margin:#7A4360;
+  --mark:rgba(255,214,10,.34);--chip:#212849;--danger:#FF8A7A;--ok:#5FD3AB;--on:#FFFFFF;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:"Bricolage Grotesque","Figtree",system-ui,sans-serif;margin:0;letter-spacing:-.015em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.app{max-width:1140px;margin:0 auto;padding:22px 20px 60px}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:26px}
+.top h1{font-size:30px;font-weight:700}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tab{background:none;border:0;padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:500}
+.tab:hover{background:var(--chip)}
+.tab[aria-current="page"]{background:var(--ink);color:var(--bg)}
+
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px;align-items:start}
+.side h2{font-size:15px;font-weight:600;color:var(--muted);margin-bottom:10px}
+.side ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.crs{--c:var(--ink);display:flex;align-items:center;border-radius:12px;border-left:6px solid var(--c);background:color-mix(in srgb,var(--c) 13%,var(--surface));min-width:0}
+.crs:hover{background:color-mix(in srgb,var(--c) 22%,var(--surface))}
+.crs.on{background:var(--c);color:var(--on)}
+.crs.all{--on:var(--bg)}
+.crs.on .ct,.crs.on .rm{color:inherit;opacity:.85}
+.dotbtn{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.9);padding:0;margin-left:8px;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.pick{flex:1;min-width:0;display:flex;align-items:center;gap:10px;background:none;border:0;padding:9px 10px;text-align:left;border-radius:10px}
+.nmwrap{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.meets{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.crs.on .meets{opacity:.85}
+.ct{color:var(--muted);font-size:14px}
+.rm{background:none;border:0;color:var(--muted);padding:6px 9px;border-radius:8px;font-size:15px;line-height:1}
+.rm:hover{color:var(--danger)}
+.crs.on .rm:hover{text-decoration:underline}
+.rm.armed{font-size:13px;font-weight:700;color:var(--danger)}
+.crs.on .rm.armed{color:inherit}
+.hint{color:var(--muted);font-size:14px;margin:0}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none}
+
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.head h2{font-size:24px;font-weight:700}
+.btn{border:1px solid var(--line);background:var(--surface);padding:9px 16px;border-radius:10px;font-weight:500;display:inline-flex;align-items:center}
+.btn:hover{border-color:var(--muted)}
+.btn:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.notice{margin:0 0 16px;padding:10px 14px;border-radius:10px;background:var(--chip);font-weight:500}
+.notice.err{color:var(--danger)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.stat{padding:14px 18px;display:flex;flex-direction:column;gap:2px}
+.stat+.stat{border-left:1px solid var(--line)}
+.stat .lab{color:var(--muted);font-size:14px;font-weight:500}
+.stat strong{font-family:"Bricolage Grotesque","Figtree",sans-serif;font-size:24px;line-height:1.15}
+.stat .sub2{font-size:14px;color:var(--muted)}
+.stat.bad strong,.stat.bad .sub2{color:var(--danger)}
+.stack{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--chip);margin-top:2px}
+.stack i{display:block;height:100%}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin:8px 0 22px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.group{margin-bottom:26px}
+.gh{font-size:16px;font-weight:600;color:var(--muted);margin-bottom:8px}
+.gh.bad{color:var(--danger)}
+.list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.row{--c:#888;display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(140px,auto) auto;grid-template-areas:"chk what imp when acts";gap:14px;align-items:center;padding:13px 14px 13px 12px;border-left:6px solid var(--c)}
+.row+.row{border-top:1px solid var(--line)}
+.row.done .ttl{text-decoration:line-through;color:var(--muted)}
+.check{grid-area:chk;width:24px;height:24px;border-radius:8px;border:2px solid var(--muted);background:none;padding:0;position:relative}
+.check[aria-checked="true"]{background:var(--accent);border-color:var(--accent)}
+.check[aria-checked="true"]::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid var(--accent-ink);border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.what{grid-area:what}
+.ttl{font-weight:600;overflow-wrap:anywhere}
+.meta{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;flex-wrap:wrap}
+.tag{background:var(--chip);border-radius:6px;padding:0 8px;font-size:13px}
+.imp{grid-area:imp}
+.impact{display:inline-flex;align-items:center;gap:8px;background:var(--chip);border:0;border-radius:8px;padding:4px 10px;font-size:13px;font-weight:600;white-space:nowrap}
+.impact.hi{background:color-mix(in srgb,var(--c) 20%,var(--surface))}
+.impact.none{background:none;color:var(--muted);font-weight:500;padding:4px 2px;text-decoration:underline dotted}
+.ibar{width:44px;height:6px;border-radius:9px;background:var(--line);overflow:hidden;display:inline-block}
+.ibar i{display:block;height:100%;background:var(--c)}
+.wedit{display:inline-flex;align-items:center;gap:4px;font-size:14px}
+.wedit input{width:70px;padding:5px 8px}
+.when{grid-area:when;text-align:right;display:flex;flex-direction:column;line-height:1.3}
+.when span{color:var(--muted);font-size:14px}
+.when.late span{color:var(--danger);font-weight:600}
+.acts{grid-area:acts;display:flex;align-items:center;gap:4px}
+.mini{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;padding:5px 9px;border-radius:8px;background:var(--chip);white-space:nowrap}
+.mini:hover{text-decoration:underline}
+.x{background:none;border:0;color:var(--muted);font-size:20px;line-height:1;padding:4px 8px;border-radius:8px}
+.x:hover{color:var(--danger)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
+.ph{font-size:17px;font-weight:600;margin-bottom:10px}
+.panel details{margin-top:12px;color:var(--muted);font-size:14px}
+.panel summary{cursor:pointer;color:var(--ink);font-weight:500}
+.panel details p{margin:8px 0 0;max-width:70ch}
+.gl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.gl li{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr) 52px;gap:12px;align-items:center;font-size:15px}
+.gbar{height:8px;border-radius:9px;background:var(--chip);overflow:hidden}
+.gbar i{display:block;height:100%}
+.gl strong{text-align:right}
+.fields{display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1fr .8fr;gap:12px;align-items:end}
+.field{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500;color:var(--muted)}
+input[type=text],input[type=date],input[type=number],select,textarea{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;color:var(--ink)}
+textarea{resize:vertical;min-height:220px;line-height:1.5}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.drop.over{border-color:var(--accent);background:var(--chip)}
+.drop p{margin:0;font-weight:600}
+.status{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;margin:-4px 0 12px;min-height:22px}
+
+.paper{white-space:pre-wrap;overflow-wrap:anywhere;background-color:var(--paper);background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 27px,var(--rule) 27px,var(--rule) 28px);background-position:0 14px;background-attachment:local;border:1px solid var(--line);border-left:3px solid var(--margin);border-radius:12px;padding:14px 16px 14px 20px;line-height:28px;font-size:15px;max-height:520px;overflow:auto}
+mark{color:inherit;background-image:linear-gradient(var(--mark),var(--mark));background-repeat:no-repeat;background-position:0 78%;background-size:0% 68%;padding:0 .18em;margin:0 -.18em;border-radius:2px;animation:sweep .55s ease-out forwards;animation-delay:calc(var(--i,0)*110ms + 150ms)}
+@keyframes sweep{to{background-size:100% 68%}}
+@media (prefers-reduced-motion: reduce){mark{animation:none;background-size:100% 68%}}
+
+.impgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}
+.impgrid h3{font-size:16px;font-weight:600;margin-bottom:10px}
+.flist{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.frow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 10px;padding:12px 14px;align-items:center}
+.frow+.frow{border-top:1px solid var(--line)}
+.frow input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent)}
+.frow .sub{grid-column:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.frow .pct{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
+.frow .pct input{width:100%}
+
+.cal-nav{display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.dow{background:var(--surface);padding:8px 6px;text-align:center;font-size:13px;color:var(--muted);font-weight:500}
+.cell{background:var(--surface);border:0;border-radius:0;min-height:96px;padding:6px;text-align:left;display:flex;flex-direction:column;gap:3px;align-items:stretch}
+.cell.blank{cursor:default;background:var(--bg)}
+.cell:not(.blank):hover{background:var(--chip)}
+.cell.sel{box-shadow:inset 0 0 0 2px var(--accent)}
+.dn{font-size:13px;font-weight:600;width:24px;height:24px;display:grid;place-items:center;border-radius:50%}
+.cell.today .dn{background:var(--accent);color:var(--accent-ink)}
+.chip{display:block;font-size:12px;line-height:1.3;padding:2px 6px;border-radius:5px;background:var(--chip);border-left:3px solid var(--c);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip.d{opacity:.55;text-decoration:line-through}
+.more{font-size:12px;color:var(--muted);padding-left:4px}
+.dayhead{margin:22px 0 10px;font-size:18px;font-weight:600}
+
+.empty{padding:8px 0}
+.empty h2{font-size:28px;font-weight:700;margin-bottom:8px}
+.empty p{color:var(--muted);max-width:56ch;margin:0 0 18px}
+.demo{max-width:420px;margin-bottom:22px}
+
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr;gap:18px}
+  .side ul{flex-direction:row;flex-wrap:wrap;gap:8px}
+  .crs{max-width:100%}
+  .impgrid{grid-template-columns:1fr}
+  .fields{grid-template-columns:1fr 1fr}
+}
+@media (max-width:700px){
+  .row{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"chk what acts" ". when when" ". imp imp";gap:6px 12px}
+  .when{flex-direction:row;gap:8px;text-align:left;align-items:baseline}
+  .imp{justify-self:start}
+  .stats{grid-template-columns:1fr}
+  .stat+.stat{border-left:0;border-top:1px solid var(--line)}
+}
+@media (max-width:600px){
+  .top h1{font-size:26px}
+  .cell{min-height:58px;padding:4px;flex-direction:row;flex-wrap:wrap;align-content:flex-start;gap:3px}
+  .cell .dn{flex:0 0 100%;width:auto;justify-content:start}
+  .chip{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:var(--c);font-size:0}
+  .more{display:none}
+  .fields{grid-template-columns:1fr}
+  .gl li{grid-template-columns:minmax(0,1fr) 44px}
+  .gl .gbar{grid-column:1/-1;order:3}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <h1>Syllabus Desk</h1>
+    <nav class="tabs" aria-label="Views">
+      <button class="tab" data-action="tab" data-view="upcoming">Upcoming</button>
+      <button class="tab" data-action="tab" data-view="month">Month</button>
+      <button class="tab" data-action="tab" data-view="import">Add syllabus</button>
+    </nav>
+  </header>
+  <div class="layout">
+    <aside class="side"><h2>Courses</h2><div id="courses"></div></aside>
+    <main id="main"></main>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var KEY="syllabus-desk-v1";
+var PDF_WORKER="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+var COLORS=["#2748D8","#C72A63","#0A7F5F","#B45309","#7B3FD1","#0E7C9C"];
+var TYPES={exam:"Exam",assignment:"Assignment",reading:"Reading",other:"Other"};
+var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var MONTHS={jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+var reMonth=/\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(\d{4}))?\b/gi;
+var reNum=/\b(\d{1,2})\/(\d{1,2})(?:\/(\d{4}|\d{2}))?\b/g;
+var STOP={the:1,and:1,for:1,due:1,with:1,from:1,will:1,all:1,are:1,chapter:1,chapters:1,week:1,of:1,to:1,in:1,on:1,is:1,at:1,an:1};
+// Common syllabus abbreviations that wouldn't otherwise share 3+ letters
+// with their grading-category spelled-out name (e.g. "HW 4" vs "Homework").
+var SYN={hw:"homework",hwk:"homework",ps:"problemset",pset:"problemset",hmwk:"homework",asgn:"assignment",asmt:"assignment",lab:"laboratory",qz:"quiz"};
+
+var now=new Date();
+var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+function pad(n){return n<10?"0"+n:""+n}
+function iso(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+function parseISO(s){var p=s.split("-").map(Number);return new Date(p[0],p[1]-1,p[2])}
+function daysFrom(s){return Math.round((parseISO(s)-today)/864e5)}
+function fmtDay(s){
+  var d=parseISO(s);
+  return MON[d.getMonth()]+" "+d.getDate()+(d.getFullYear()!==today.getFullYear()?" "+d.getFullYear():"")+", "+DAYS[d.getDay()];
+}
+function rel(s){var n=daysFrom(s);if(n===0)return "today";if(n===1)return "tomorrow";if(n===-1)return "yesterday";return n>1?"in "+n+" days":Math.abs(n)+" days ago"}
+function pct(w){return String(Math.round(w*10)/10)}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function uid(){return Math.random().toString(36).slice(2,9)}
+function $(s){return document.querySelector(s)}
+function plural(n,w){return n+" "+w+(n===1?"":"s")}
+
+var caps={dl:null,ai:null};
+var state={courses:[],items:[],view:"upcoming",filter:null,cursor:{y:today.getFullYear(),m:today.getMonth()},day:null,addOpen:false,armed:null,editW:null,notice:"",noticeErr:false,
+  imp:{course:"",text:"",found:null,html:"",grading:[],fileName:"",busy:null,src:"",weekItems:null,meetingDays:null,meetingTime:null,termStart:"",queue:[],queuePos:0,queueTotal:0}};
+var MAX_BATCH=6;
+var aiCtl=null;
+try{var raw=localStorage.getItem(KEY);if(raw){var d0=JSON.parse(raw);if(d0&&Array.isArray(d0.courses)&&Array.isArray(d0.items)){state.courses=d0.courses;state.items=d0.items}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({courses:state.courses,items:state.items}))}catch(e){}}
+function course(id){return state.courses.find(function(c){return c.id===id})}
+function resolveCourse(name){
+  name=(name||"").trim()||"My course";
+  var c=state.courses.find(function(c){return c.name.toLowerCase()===name.toLowerCase()});
+  if(!c){c={id:uid(),name:name,color:COLORS[state.courses.length%COLORS.length]};state.courses.push(c)}
+  return c;
+}
+function visible(){return state.items.filter(function(i){return !state.filter||i.courseId===state.filter})}
+function byDate(a,b){return a.date.localeCompare(b.date)||a.title.localeCompare(b.title)}
+function sumW(list){return list.reduce(function(s,i){return s+(+i.weight||0)},0)}
+
+/* ---------- sample syllabus (dates are relative to today so the demo always has overdue + upcoming) ---------- */
+function shortDate(off,numeric){
+  var d=new Date(today.getFullYear(),today.getMonth(),today.getDate()+off);
+  return numeric?(d.getMonth()+1)+"/"+d.getDate():MON[d.getMonth()]+" "+d.getDate();
+}
+function makeSample(){
+  return "BIO 201: Cell Biology\nOffice hours: Tue/Thu 2:00-3:30 pm, Science Hall 214\n\nGrading\nQuizzes: 10%\nProblem sets: 15%\nLab reports: 20%\nMidterm exam: 25%\nGroup presentation: 10%\nFinal exam: 20%\nLate work loses 10% per day.\n\nSchedule\n"+
+    shortDate(-7)+" - Problem set 2 due\n"+
+    shortDate(1)+" - Problem set 3 due\n"+
+    shortDate(3)+" - Reading: Chapters 4-5 (membranes)\n"+
+    shortDate(8)+" - Quiz 1 (chapters 1-4)\n"+
+    shortDate(17)+" - Lab report 1 due\n"+
+    shortDate(24)+" - Midterm exam\n"+
+    shortDate(31,true)+" - Reading: Chapter 9, cell signaling\n"+
+    shortDate(38)+" - Quiz 2\n"+
+    shortDate(45)+" - Problem set 4 due\n"+
+    shortDate(52)+" - Group presentation\n"+
+    shortDate(59)+" - Lab report 2 due\n"+
+    shortDate(80)+" - Final exam, 8:00 am\n";
+}
+
+/* ---------- date + grade finding (runs in the browser, no AI needed) ---------- */
+function makeDate(mo,d,y){
+  if(mo<0||mo>11||d<1||d>31)return null;
+  var yr=y;
+  if(yr==null){
+    yr=today.getFullYear();
+    var c=new Date(yr,mo,d);
+    if(c<new Date(today.getTime()-90*864e5))yr++;
+    else if(c>new Date(today.getTime()+275*864e5))yr--;
+  }
+  var dt=new Date(yr,mo,d);
+  if(dt.getMonth()!==mo)return null;
+  return iso(dt);
+}
+function guessType(t){
+  if(/\b(final|midterm|exam|test|quiz|qz\d)/i.test(t))return "exam";
+  if(/\b(read|reading|chapter|chapters|ch\.)/i.test(t))return "reading";
+  if(/\b(paper|essay|project|report|presentation|lab|assignment|homework|hw|problem set|pset|due|submit)/i.test(t))return "assignment";
+  return "other";
+}
+function cleanTitle(line,ms){
+  var s=line;
+  for(var k=ms.length-1;k>=0;k--)s=s.slice(0,ms[k].s)+" "+s.slice(ms[k].e);
+  s=s.replace(/\b(mon|tues?|wed(?:nes)?|thu(?:rs?)?|fri|sat(?:ur)?|sun)(?:day)?\b\.?,?/gi," ")
+     .replace(/\s+/g," ")
+     .replace(/^[\s\-\u2013\u2014:|\u2022*.,;()]+|[\s\-\u2013\u2014:|\u2022*,;(]+$/g,"");
+  if(s.length>90)s=s.slice(0,88)+"\u2026";
+  return s||"Untitled";
+}
+function parseGrading(text){
+  var out=[];
+  var r1=/^\s*(?:[-\u2022*]\s*)?([A-Za-z][A-Za-z0-9&\/(),.' \u2019-]{1,160}?)\s*[:\-\u2013\u2014]*\s*(\d{1,3}(?:\.\d+)?)\s*%/;
+  var r2=/^\s*(?:[-\u2022*]\s*)?(\d{1,3}(?:\.\d+)?)\s*%\s*[:\-\u2013\u2014]?\s*([A-Za-z][A-Za-z0-9&\/(),.' \u2019-]{1,160})\s*$/;
+  text.split(/\r?\n/).forEach(function(line){
+    if(/per day|per week|\blate\b|penalt|deduct|\blose|\bloses|below|curve/i.test(line))return;
+    if(/^\s*(?:[-\u2022*]\s*)?total\b/i.test(line))return;
+    var m=r1.exec(line),name,p;
+    if(m){name=m[1];p=+m[2]}
+    else{m=r2.exec(line);if(m){p=+m[1];name=m[2]}}
+    if(!m||!(p>0&&p<=100))return;
+    name=name.replace(/\s+/g," ").trim();
+    if(name.length<3)return;
+    if(name.length>70)name=name.slice(0,68).replace(/[\s(,-]+$/,"")+"\u2026";
+    out.push({name:name,percent:p});
+  });
+  return out.length>=2?out:[];
+}
+function tokens(s){
+  return (s.toLowerCase().match(/[a-z]{2,}/g)||[])
+    .filter(function(w){return !STOP[w]})
+    .map(function(w){return SYN[w]||w});
+}
+function tokMatch(a,b){return a===b||(Math.min(a.length,b.length)>=3&&(a.indexOf(b)===0||b.indexOf(a)===0))}
+function assignWeights(items,grading){
+  if(!grading.length)return;
+  var cats=grading.map(function(g){return tokens(g.name)});
+  var counts=grading.map(function(){return 0});
+  items.forEach(function(it){
+    var it_t=tokens(it.title),best=-1,bs=0;
+    cats.forEach(function(ct,ci){
+      var sc=0;
+      it_t.forEach(function(t){if(ct.some(function(c){return tokMatch(t,c)}))sc++});
+      if(sc>bs){bs=sc;best=ci}
+    });
+    it._cat=best;
+    if(best>=0)counts[best]++;
+  });
+  items.forEach(function(it){
+    if(it._cat>=0)it.weight=Math.round(grading[it._cat].percent/counts[it._cat]*10)/10;
+    else it.weight=null;
+    delete it._cat;
+  });
+}
+function findDates(text){
+  var out=[],html="",n=0;
+  text.split(/\r?\n/).forEach(function(line){
+    var ms=[],m;
+    reMonth.lastIndex=0;
+    while((m=reMonth.exec(line))){ms.push({s:m.index,e:m.index+m[0].length,date:makeDate(MONTHS[m[1].slice(0,3).toLowerCase()],+m[2],m[3]?+m[3]:null)})}
+    reNum.lastIndex=0;
+    while((m=reNum.exec(line))){
+      var y=m[3]?(+m[3]<100?2000+ +m[3]:+m[3]):null;
+      ms.push({s:m.index,e:m.index+m[0].length,date:makeDate(+m[1]-1,+m[2],y)});
+    }
+    var good=ms.filter(function(x){return x.date}).sort(function(a,b){return a.s-b.s});
+    var keep=[];
+    good.forEach(function(x){if(!keep.length||x.s>=keep[keep.length-1].e)keep.push(x)});
+    var pos=0;
+    keep.forEach(function(x){
+      html+=esc(line.slice(pos,x.s))+'<mark style="--i:'+(n++)+'">'+esc(line.slice(x.s,x.e))+"</mark>";
+      pos=x.e;
+    });
+    html+=esc(line.slice(pos))+"\n";
+    if(keep.length)out.push({title:cleanTitle(line,keep),date:keep[0].date,type:guessType(line),weight:null,checked:true});
+  });
+  var grading=parseGrading(text);
+  assignWeights(out,grading);
+  return {items:out,html:html,grading:grading};
+}
+
+/* ---------- week-numbered schedules ("Week 8: Midterm exam") ---------- */
+var DAY_CODES={M:1,T:2,W:3,R:4,F:5,S:6,U:0};
+function daysFromCode(raw){
+  raw=(raw||"").toUpperCase();
+  var days=[],i=0;
+  while(i<raw.length){
+    if(raw.slice(i,i+2)==="TH"){days.push(4);i+=2;continue}
+    if(raw.slice(i,i+2)==="SU"){days.push(0);i+=2;continue}
+    if(raw.slice(i,i+2)==="SA"){days.push(6);i+=2;continue}
+    var c=raw[i];
+    if(DAY_CODES[c]!=null){days.push(DAY_CODES[c]);i++;continue}
+    i++;
+  }
+  return days.length?Array.from(new Set(days)).sort(function(a,b){return a-b}):null;
+}
+function parseMeetingDays(text){
+  var m=/(?:class meeting times?|meets?|meeting days?)[^\n]{0,20}?:?\s*([A-Za-z\/]{1,14})\b/i.exec(text);
+  return m?daysFromCode(m[1]):null;
+}
+// Pulls the actual class time ("10:40 AM - 11:45 AM", "8:00AM–9:45AM") off
+// a syllabus so calendar events can be scheduled at the real meeting time
+// instead of defaulting to all-day.
+function parseMeetingTime(text){
+  var m=/(\d{1,2}):(\d{2})\s*([AaPp][Mm])\s*(?:-|\u2013|\u2014|to)\s*(\d{1,2}):(\d{2})\s*([AaPp][Mm])/.exec(text);
+  if(!m)return null;
+  function to24(hh,mm,ap){
+    hh=+hh%12;mm=+mm;
+    if(/p/i.test(ap))hh+=12;
+    return {h:hh,m:mm};
+  }
+  var s=to24(m[1],m[2],m[3]),e=to24(m[4],m[5],m[6]);
+  return {startH:s.h,startM:s.m,endH:e.h,endM:e.m};
+}
+function fmtTimeAmPm(h,m){
+  var ap=h>=12?"PM":"AM",hh=h%12;if(hh===0)hh=12;
+  return hh+":"+pad(m)+" "+ap;
+}
+var WEEK_TOKEN="(?:HWK\\s*\\d+|HW\\s*\\d+|Homework\\s*\\d+|QZ\\s*\\d+|Quiz\\s*\\d+|Mid-?\\s*Term(?:\\s+Exam)?|Midterm(?:\\s+Exam)?|Final\\s*Exam(?:\\s*\\([^)]*\\))?|Lab(?:\\s+Report)?\\s*\\d*|Project\\s*\\d*|Presentation\\s*\\d*|Paper\\s*\\d*)";
+var reWeekTail=new RegExp("\\b("+WEEK_TOKEN+"(?:\\s*[,;]\\s*"+WEEK_TOKEN+")*)\\s*$","i");
+var reWeekTok=new RegExp("\\b("+WEEK_TOKEN+")\\b","i");
+// PDF-to-text extraction sometimes glues two table cells together with no
+// space at all when their rows sat close together in the original layout —
+// e.g. "...Virtualization5 Concurrency" (a topic glued to the next row's
+// week number) or "...HW615-16 Review..." (an assignment code glued to the
+// next row's week range). Both patterns are narrow enough (a letter/digit
+// sitting directly against a number that's immediately followed by a
+// capital letter or a dash-number) that real prose essentially never
+// triggers them, so this is safe to apply unconditionally before parsing.
+function unglueWeekText(text){
+  return text
+    .replace(/([a-z])(\d{1,2})(\s[A-Z])/g,"$1\n$2$3")
+    .replace(/(\d)(\d{1,2}-\d{1,2}\b)/g,"$1 $2");
+}
+// Many syllabi lay out the schedule as "Week 8  Topic  Midterm Exam" with no
+// calendar date at all. This finds that table (by spotting a run of 4+
+// consecutive week numbers) and pulls the trailing assignment/exam tokens
+// off each row, leaving the actual date to be computed once the student
+// says when their first class meets (see weekToDate / the "calcweeks" action).
+function findWeekRows(text){
+  var lines=text.split(/\r?\n/);
+  var candidates=[];
+  lines.forEach(function(line){
+    var m=/^\s*(?:week\s*)?(\d{1,2})\s*[:.\-]?\s+([A-Za-z][^\n]{1,140})$/i.exec(line);
+    if(m){var wk=+m[1];if(wk>=1&&wk<=40)candidates.push({week:wk,rest:m[2].trim()})}
+  });
+  var bestStart=-1,bestLen=0,i=0;
+  while(i<candidates.length){
+    var j=i;
+    while(j+1<candidates.length&&candidates[j+1].week===candidates[j].week+1)j++;
+    var len=j-i+1;
+    if(len>bestLen){bestLen=len;bestStart=i}
+    i=j+1;
+  }
+  if(bestLen<4)return [];
+  var rows=candidates.slice(bestStart,bestStart+bestLen);
+  var items=[];
+  rows.forEach(function(r){
+    var m=reWeekTail.exec(r.rest);
+    if(!m)return;
+    m[1].split(/[,;]/).forEach(function(tok){
+      tok=tok.trim();
+      if(tok)items.push({week:r.week,title:tok,type:guessType(tok)});
+    });
+  });
+  return items;
+}
+// Second strategy, for syllabi that call out due items separately from the
+// topic table instead of one-row-per-week — e.g. "WK4: HW2" sprinkled
+// through paragraph text.
+function findWeekColon(text){
+  var re=/\bWK\s*(\d{1,2})\s*:\s*/gi;
+  var items=[],m;
+  while((m=re.exec(text))){
+    var wk=+m[1];
+    if(wk<1||wk>40)continue;
+    var tail=text.slice(re.lastIndex,re.lastIndex+60);
+    var tm=reWeekTok.exec(tail);
+    if(tm&&tm.index<3)items.push({week:wk,title:tm[1].trim(),type:guessType(tm[1])});
+  }
+  return items;
+}
+function findWeekSchedule(rawText){
+  var text=unglueWeekText(rawText);
+  var rows=findWeekRows(text);
+  if(rows.length)return rows;
+  return findWeekColon(text);
+}
+// Due date = the LAST meeting day of that week (a reasonable "due by end of
+// the week" default); week 1 is anchored to the student-supplied first day
+// of class. Always editable afterward in the review table.
+function weekToDate(startISO,week,days){
+  var start=parseISO(startISO);
+  var md=(days&&days.length)?days:[start.getDay()];
+  var span=md[md.length-1]-md[0];
+  var base=new Date(start.getFullYear(),start.getMonth(),start.getDate()+(week-1)*7+span);
+  return iso(base);
+}
+
+/* ---------- PDF reading (pdf.js) ---------- */
+async function pdfToText(file){
+  if(!window.pdfjsLib)throw new Error("no-pdfjs");
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDF_WORKER;
+  var buf=await file.arrayBuffer();
+  var pdf=await window.pdfjsLib.getDocument({data:buf}).promise;
+  var pages=[],max=Math.min(pdf.numPages,40);
+  for(var p=1;p<=max;p++){
+    var page=await pdf.getPage(p);
+    var tc=await page.getTextContent();
+    var rows=[];
+    tc.items.forEach(function(it){
+      if(!it.str)return;
+      var y=it.transform[5],x=it.transform[4];
+      var r=rows.find(function(r){return Math.abs(r.y-y)<3});
+      if(!r){r={y:y,cells:[]};rows.push(r)}
+      r.cells.push({x:x,s:it.str});
+    });
+    rows.sort(function(a,b){return b.y-a.y});
+    pages.push(rows.map(function(r){
+      return r.cells.sort(function(a,b){return a.x-b.x}).map(function(c){return c.s}).join(" ").replace(/\s+/g," ").trim();
+    }).filter(Boolean).join("\n"));
+  }
+  return pages.join("\n\n");
+}
+function guessCourse(text){
+  // Prefer an explicit "Course: CYB 2150" / "Course Number: CSC-2450" label
+  // when present. Falls back to the first course-code-looking token, but
+  // ONLY within the first 300 characters (the title/header area) — room
+  // numbers, phone extensions, and office numbers (also 2-5 letters plus
+  // digits, e.g. "STPH 103") tend to show up later, under "Class
+  // Location:" or "Office:", so a tight window avoids grabbing those
+  // instead of the actual course code. Matches 3 OR 4 digit course
+  // numbers, since both are common (CSC 450 vs CYB 2150).
+  var labeled=/\bcourse(?:\s*(?:number|#))?\s*:?\s*([A-Z]{2,5}[\s-]?\d{3,4}[A-Z]?)\b/i.exec(text.slice(0,600));
+  if(labeled)return labeled[1].replace(/[\s-]+/," ").toUpperCase();
+  var m=/\b([A-Z]{2,5}[ -]?\d{3,4}[A-Z]?)\b/.exec(text.slice(0,300));
+  return m?m[1].replace(/[\s-]+/," ").toUpperCase():"";
+}
+// Lets a student pick/drop several syllabus PDFs at once (one per course,
+// up to MAX_BATCH) instead of repeating the whole upload flow one file at
+// a time. Files are still processed and reviewed one at a time — queueing
+// just chains loadPdf calls together, it doesn't skip the review step.
+function startQueue(fileList){
+  var all=Array.prototype.slice.call(fileList||[]);
+  var pdfs=all.filter(function(f){return /\.pdf$/i.test(f.name)||/pdf/i.test(f.type)});
+  if(!pdfs.length){say("That doesn\u2019t look like a PDF. Choose .pdf files.",true);render();return}
+  var capped=pdfs.slice(0,MAX_BATCH);
+  var imp=state.imp;
+  imp.queue=capped.slice(1);
+  imp.queueTotal=capped.length;
+  imp.queuePos=1;
+  imp.course="";
+  if(pdfs.length>MAX_BATCH){
+    say("You can add up to "+MAX_BATCH+" syllabi at once \u2014 using the first "+MAX_BATCH+" and skipping the rest.",true);
+  }
+  loadPdf(capped[0]);
+}
+// Moves to the next queued file, resetting the per-file fields but leaving
+// the queue bookkeeping (queuePos/queueTotal) alone so the "File 2 of 4"
+// progress stays accurate. Returns false once the queue is actually empty.
+function advanceQueue(){
+  var imp=state.imp;
+  if(imp.queue.length){
+    var next=imp.queue.shift();
+    imp.queuePos++;
+    imp.course="";imp.text="";imp.found=null;imp.weekItems=null;imp.grading=[];imp.html="";imp.src="";imp.fileName="";imp.meetingDays=null;imp.meetingTime=null;
+    loadPdf(next);
+    return true;
+  }
+  imp.queue=[];imp.queueTotal=0;imp.queuePos=0;
+  return false;
+}
+async function loadPdf(file){
+  if(!file)return;
+  if(!/\.pdf$/i.test(file.name)&&!/pdf/i.test(file.type)){say("That doesn\u2019t look like a PDF. Choose a .pdf file.",true);render();return}
+  var imp=state.imp;
+  imp.busy="pdf";imp.fileName=file.name;imp.found=null;state.notice="";
+  render();
+  try{
+    var txt=await pdfToText(file);
+    if(txt.replace(/\s/g,"").length<40){
+      say("This PDF has no text Syllabus Desk can read (it may be a scan). Paste the text below instead.",true);
+    }else{
+      imp.text=txt;
+      if(!imp.course)imp.course=guessCourse(txt);
+      runFind();
+    }
+  }catch(err){
+    say(err&&err.message==="no-pdfjs"?"PDF reading didn\u2019t load in this view. Paste the syllabus text below instead.":"Couldn\u2019t read that PDF here. Paste the syllabus text below instead.",true);
+  }
+  imp.busy=null;
+  render();
+}
+
+/* ---------- Claude reading (optional; uses the viewer's own Claude) ---------- */
+function normalizeAI(data){
+  if(!data||!Array.isArray(data.items))return null;
+  var items=[];
+  data.items.forEach(function(x){
+    if(!x||typeof x.title!=="string"||typeof x.date!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(x.date))return;
+    var p=x.date.split("-").map(Number),dt=new Date(p[0],p[1]-1,p[2]);
+    if(dt.getMonth()!==p[1]-1)return;
+    var w=(typeof x.weight==="number"&&x.weight>=0&&x.weight<=100)?x.weight:null;
+    items.push({title:x.title.slice(0,90),date:x.date,type:TYPES[x.type]?x.type:"other",weight:w,checked:true});
+  });
+  var grading=(Array.isArray(data.grading)?data.grading:[]).filter(function(g){return g&&typeof g.name==="string"&&typeof g.percent==="number"&&g.percent>0&&g.percent<=100}).map(function(g){return {name:g.name.slice(0,60),percent:g.percent}});
+  return {items:items,grading:grading};
+}
+async function readWithClaude(){
+  var imp=state.imp;
+  if(!imp.text.trim()){say("Upload a PDF or paste some syllabus text first.",true);render();return}
+  if(!caps.ai)return;
+  aiCtl=new AbortController();
+  imp.busy="ai";state.notice="";
+  imp.meetingDays=parseMeetingDays(imp.text);
+  imp.meetingTime=parseMeetingTime(imp.text);
+  render();
+  var prompt="You extract deadlines and grading from a college syllabus. Today is "+iso(today)+".\n"+
+    'Reply with only JSON in this shape: {"grading":[{"name":"Midterm exam","percent":25}],"items":[{"title":"Midterm exam","date":"2026-10-15","type":"exam","weight":25}]}\n'+
+    "Rules:\n- items: every dated exam, quiz, assignment, project, paper, presentation, reading and other deadline. One item per deliverable and date. Keep titles short and leave the date out of the title.\n"+
+    "- type is one of exam, assignment, reading, other.\n"+
+    "- Complete dates that omit a year using the term or year stated in the syllabus; otherwise use the nearest upcoming year.\n"+
+    "- weight is the percent of the FINAL GRADE that this single item is worth. If the syllabus gives a category weight (for example Quizzes 10%), split it evenly among that category's items. Use null when the item is ungraded or the syllabus doesn't say.\n"+
+    "- grading is the grading breakdown from the syllabus, or an empty array if there isn't one.\n- Never invent items or numbers.\n\nSyllabus:\n\"\"\"\n"+imp.text.slice(0,50000)+"\n\"\"\"";
+  try{
+    var data=await caps.ai.json(prompt,{signal:aiCtl.signal});
+    var r=normalizeAI(data);
+    if(!r||!r.items.length){say("Claude didn\u2019t find any dated items in this text. Try \u201CFind dates\u201D, or check that the schedule is included.",true)}
+    else{imp.found=r.items;imp.grading=r.grading;imp.html=findDates(imp.text).html;imp.src="claude"}
+  }catch(e){
+    var code=e&&e.code;
+    if(code!=="cancelled")say(code==="not_granted"?"Claude wasn\u2019t allowed to read this. Use \u201CFind dates\u201D instead.":code==="rate_limited"?"Too many requests right now. Try again in a bit, or use \u201CFind dates\u201D.":"Claude couldn\u2019t read this one. Try again, or use \u201CFind dates\u201D.",true);
+  }
+  aiCtl=null;imp.busy=null;render();
+}
+
+/* ---------- calendar ---------- */
+// When the course has a known meeting time (parsed off its syllabus, e.g.
+// "Class Meeting Times: M/W/F 10:40 AM - 11:45 AM"), events are scheduled
+// at that real time instead of defaulting to all-day.
+function gcalUrl(i){
+  var c=course(i.courseId);
+  var details=(TYPES[i.type]||"Other")+(i.weight>0?", "+pct(i.weight)+"% of your final grade":"");
+  var d=i.date.replace(/-/g,""),datesParam;
+  if(c&&c.meetingTime){
+    var mt=c.meetingTime;
+    datesParam=d+"T"+pad(mt.startH)+pad(mt.startM)+"00/"+d+"T"+pad(mt.endH)+pad(mt.endM)+"00";
+  }else{
+    var p=i.date.split("-").map(Number);
+    var end=iso(new Date(p[0],p[1]-1,p[2]+1));
+    datesParam=d+"/"+end.replace(/-/g,"");
+  }
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent((c?c.name+": ":"")+i.title)+"&dates="+datesParam+"&details="+encodeURIComponent(details);
+}
+var DOW_CODE=["SU","MO","TU","WE","TH","FR","SA"];
+// Earliest known date for a course: the student-given first day of class
+// if we have it (from the week-schedule flow), otherwise the earliest
+// assignment we know about for that course, otherwise today.
+function courseStart(c){
+  if(c.termStart)return c.termStart;
+  var ds=state.items.filter(function(i){return i.courseId===c.id}).map(function(i){return i.date}).sort();
+  return ds.length?ds[0]:iso(today);
+}
+// Latest known date, padded out to a full default-length (16 week)
+// semester if every known date falls earlier than that — so the
+// recurring event doesn't stop the moment the last homework is due.
+function courseEnd(c){
+  var ds=state.items.filter(function(i){return i.courseId===c.id}).map(function(i){return i.date}).sort();
+  var start=parseISO(courseStart(c));
+  var fallback=new Date(start.getFullYear(),start.getMonth(),start.getDate()+16*7);
+  var last=ds.length?parseISO(ds[ds.length-1]):null;
+  return iso(last&&last>fallback?last:fallback);
+}
+function nextMeetingOnOrAfter(dateISO,days){
+  var d=parseISO(dateISO);
+  for(var i=0;i<7;i++){
+    var cand=new Date(d.getFullYear(),d.getMonth(),d.getDate()+i);
+    if(days.indexOf(cand.getDay())!==-1)return iso(cand);
+  }
+  return dateISO;
+}
+// A single Google Calendar link that creates the WHOLE semester's worth of
+// class sessions at once, using Google's own weekly-recurrence support
+// (the &recur= RRULE parameter) rather than one event per class meeting.
+function classRecurUrl(c){
+  if(!c.meetingDays||!c.meetingDays.length||!c.meetingTime)return null;
+  var mt=c.meetingTime;
+  var start=nextMeetingOnOrAfter(courseStart(c),c.meetingDays);
+  var end=courseEnd(c);
+  var d=start.replace(/-/g,"");
+  var datesParam=d+"T"+pad(mt.startH)+pad(mt.startM)+"00/"+d+"T"+pad(mt.endH)+pad(mt.endM)+"00";
+  var byday=c.meetingDays.map(function(dw){return DOW_CODE[dw]}).join(",");
+  var recur="RRULE:FREQ=WEEKLY;BYDAY="+byday+";UNTIL="+end.replace(/-/g,"")+"T235959Z";
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(c.name+" class")+"&dates="+datesParam+"&recur="+encodeURIComponent(recur);
+}
+function csvCell(s){return '"'+String(s).replace(/"/g,'""')+'"'}
+function mdY(s){var p=s.split("-");return p[1]+"/"+p[2]+"/"+p[0]}
+function buildCsv(list){
+  var rows=[["Subject","Start Date","Start Time","End Date","End Time","All Day Event","Description","Location","Private"]];
+  list.forEach(function(i){
+    var c=course(i.courseId);
+    var allDay="True",st="",et="";
+    if(c&&c.meetingTime){
+      allDay="False";
+      st=fmtTimeAmPm(c.meetingTime.startH,c.meetingTime.startM);
+      et=fmtTimeAmPm(c.meetingTime.endH,c.meetingTime.endM);
+    }
+    rows.push([(c?c.name+": ":"")+i.title,mdY(i.date),st,mdY(i.date),et,allDay,(TYPES[i.type]||"Other")+(i.weight>0?", "+pct(i.weight)+"% of your final grade":""),"","False"]);
+  });
+  return rows.map(function(r){return r.map(csvCell).join(",")}).join("\r\n");
+}
+async function exportCsv(){
+  var list=visible().filter(function(i){return !i.done}).sort(byDate);
+  if(!list.length){say("Nothing to export yet. Add a syllabus first.",true);return}
+  try{
+    await caps.dl.save({filename:"syllabus-dates.csv",data:buildCsv(list)});
+    say("Saved. In Google Calendar open Settings, then Import & export, and choose syllabus-dates.csv.");
+  }catch(e){
+    if(!e||e.code!=="declined")say("Couldn\u2019t save the file here.",true);
+  }
+}
+/* ---------- .ics export (Apple Calendar, Outlook, Google \u2014 no Google account needed) ---------- */
+function icsEscape(s){return String(s).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n")}
+function icsDate(d){return d.replace(/-/g,"")}
+function icsDateTime(d,h,m){return d.replace(/-/g,"")+"T"+pad(h)+pad(m)+"00"}
+function icsStamp(){
+  var d=new Date();
+  return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+"T"+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+"Z";
+}
+// One .ics file covers both the due-date items (list) AND, for any course
+// with a known meeting time, a recurring weekly class-session event \u2014 so a
+// single download gives a student their whole term, not just assignments.
+function buildIcs(list,courses){
+  var stamp=icsStamp();
+  var lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Syllabus Desk//EN","CALSCALE:GREGORIAN"];
+  list.forEach(function(i,idx){
+    var c=course(i.courseId);
+    var desc=(TYPES[i.type]||"Other")+(i.weight>0?", "+pct(i.weight)+"% of your final grade":"");
+    lines.push("BEGIN:VEVENT","UID:item-"+(i.id||idx)+"@syllabusdesk","DTSTAMP:"+stamp);
+    if(c&&c.meetingTime){
+      var mt=c.meetingTime;
+      lines.push("DTSTART:"+icsDateTime(i.date,mt.startH,mt.startM),"DTEND:"+icsDateTime(i.date,mt.endH,mt.endM));
+    }else{
+      var p=i.date.split("-").map(Number);
+      var end=iso(new Date(p[0],p[1]-1,p[2]+1));
+      lines.push("DTSTART;VALUE=DATE:"+icsDate(i.date),"DTEND;VALUE=DATE:"+icsDate(end));
+    }
+    lines.push("SUMMARY:"+icsEscape((c?c.name+": ":"")+i.title),"DESCRIPTION:"+icsEscape(desc),"END:VEVENT");
+  });
+  courses.forEach(function(c){
+    if(!c.meetingDays||!c.meetingDays.length||!c.meetingTime)return;
+    var mt=c.meetingTime,start=nextMeetingOnOrAfter(courseStart(c),c.meetingDays),end=courseEnd(c);
+    var byday=c.meetingDays.map(function(dw){return DOW_CODE[dw]}).join(",");
+    lines.push("BEGIN:VEVENT","UID:class-"+c.id+"@syllabusdesk","DTSTAMP:"+stamp,
+      "DTSTART:"+icsDateTime(start,mt.startH,mt.startM),"DTEND:"+icsDateTime(start,mt.endH,mt.endM),
+      "RRULE:FREQ=WEEKLY;BYDAY="+byday+";UNTIL="+icsDate(end)+"T235959Z",
+      "SUMMARY:"+icsEscape(c.name+" class"),"END:VEVENT");
+  });
+  lines.push("END:VCALENDAR");
+  return lines.join("\r\n");
+}
+async function exportIcs(){
+  var list=visible().filter(function(i){return !i.done}).sort(byDate);
+  var courses=state.courses.filter(function(c){return !state.filter||c.id===state.filter});
+  var hasClassTimes=courses.some(function(c){return c.meetingDays&&c.meetingDays.length&&c.meetingTime});
+  if(!list.length&&!hasClassTimes){say("Nothing to export yet. Add a syllabus first.",true);return}
+  try{
+    await caps.dl.save({filename:"syllabus-desk.ics",data:buildIcs(list,courses)});
+    say("Saved syllabus-desk.ics \u2014 open it, or import it in Apple Calendar, Outlook, or Google Calendar.");
+  }catch(e){
+    if(!e||e.code!=="declined")say("Couldn\u2019t save the file here.",true);
+  }
+}
+
+/* ---------- rendering ---------- */
+function typeOptions(sel){
+  return Object.keys(TYPES).map(function(v){return '<option value="'+v+'"'+(sel===v?" selected":"")+">"+TYPES[v]+"</option>"}).join("");
+}
+function courseList(id){
+  return '<datalist id="'+id+'">'+state.courses.map(function(c){return '<option value="'+esc(c.name)+'"></option>'}).join("")+"</datalist>";
+}
+function renderCourses(){
+  var el=$("#courses");
+  var html='<ul><li class="crs all'+(!state.filter?" on":"")+'"><button class="pick" data-action="clear" aria-pressed="'+(!state.filter)+'"><span class="nm">All courses</span><span class="ct">'+state.items.filter(function(i){return !i.done}).length+"</span></button></li>";
+  html+=state.courses.map(function(c){
+    var open=state.items.filter(function(i){return i.courseId===c.id&&!i.done}).length;
+    var on=state.filter===c.id,armed=state.armed===c.id;
+    var meets=(c.meetingDays&&c.meetingDays.length&&c.meetingTime)?c.meetingDays.map(function(d){return "UMTWRFS"[d]}).join("")+" "+fmtTimeAmPm(c.meetingTime.startH,c.meetingTime.startM):"";
+    return '<li class="crs'+(on?" on":"")+'" style="--c:'+c.color+'"><button class="dotbtn" data-action="recolor" data-id="'+c.id+'" style="background:'+c.color+'" aria-label="Change the color of '+esc(c.name)+'" title="Change color"></button><button class="pick" data-action="filter" data-id="'+c.id+'" aria-pressed="'+on+'"><span class="nmwrap"><span class="nm">'+esc(c.name)+'</span>'+(meets?'<span class="meets">'+esc(meets)+'</span>':"")+'</span><span class="ct">'+open+'</span></button><button class="rm'+(armed?" armed":"")+'" data-action="remove" data-id="'+c.id+'" aria-label="Remove '+esc(c.name)+' and its dates">'+(armed?"Remove?":"\u00D7")+"</button></li>";
+  }).join("")+"</ul>";
+  if(!state.courses.length)html+='<p class="hint" style="margin-top:10px">Courses you add show up here, each with its own color.</p>';
+  el.innerHTML=html;
+}
+function impactChip(i){
+  if(state.editW===i.id){
+    return '<span class="wedit"><input type="number" min="0" max="100" step="0.5" data-wid="'+i.id+'" value="'+(i.weight>0?i.weight:"")+'" aria-label="Percent of final grade"> %</span>';
+  }
+  if(i.weight>0){
+    return '<button class="impact'+(i.weight>=15?" hi":"")+'" data-action="editw" data-id="'+i.id+'" title="Change how much this counts toward the final grade"><span class="ibar"><i style="width:'+Math.min(100,i.weight*3.5)+'%"></i></span>'+pct(i.weight)+'% of grade</button>';
+  }
+  return '<button class="impact none" data-action="editw" data-id="'+i.id+'" title="Set how much this counts toward the final grade">Ungraded</button>';
+}
+function row(i){
+  var c=course(i.courseId)||{name:"",color:"#888"};
+  var late=!i.done&&daysFrom(i.date)<0;
+  return '<li class="row'+(i.done?" done":"")+'" style="--c:'+c.color+'"><button class="check" data-action="toggle" data-id="'+i.id+'" role="checkbox" aria-checked="'+(!!i.done)+'" aria-label="Done: '+esc(i.title)+'"></button>'+
+    '<div class="what"><div class="ttl">'+esc(i.title)+'</div><div class="meta"><span class="dot" style="background:'+c.color+'"></span><span>'+esc(c.name)+'</span><span class="tag">'+(TYPES[i.type]||"Other")+'</span></div></div>'+
+    '<div class="imp">'+impactChip(i)+'</div>'+
+    '<div class="when'+(late?" late":"")+'"><strong>'+fmtDay(i.date)+'</strong><span>'+rel(i.date)+'</span></div>'+
+    '<div class="acts"><a class="mini" href="'+esc(gcalUrl(i))+'" target="_blank" rel="noopener noreferrer" aria-label="Add '+esc(i.title)+' to Google Calendar">+ Google</a><button class="x" data-action="del" data-id="'+i.id+'" aria-label="Delete '+esc(i.title)+'">\u00D7</button></div></li>';
+}
+function demoPaper(){
+  return '<div class="paper demo" aria-hidden="true">Quizzes: 10%\n<mark style="--i:0">Oct 15</mark>: Midterm exam\n<mark style="--i:1">Nov 3</mark> - Problem set 4 due\nFinal exam on <mark style="--i:2">Dec 10</mark>, 8:00 am</div>';
+}
+function empty(){
+  return '<div class="empty">'+demoPaper()+'<h2>No dates yet</h2><p>Upload a syllabus PDF and Syllabus Desk pulls out every date and how much each one counts toward your grade. You check the list, then it all lands here, sorted by what\u2019s due first.</p><div class="actions"><button class="btn primary" data-action="tab" data-view="import">Add a syllabus</button><button class="btn" data-action="sample">Try a sample syllabus</button></div></div>';
+}
+function addForm(){
+  var def=state.filter?(course(state.filter)||{}).name:(state.courses.length?state.courses[state.courses.length-1].name:"");
+  return '<div class="panel"><div class="fields">'+
+    '<label class="field">What\u2019s due<input type="text" id="af-title" placeholder="Lab report 2"></label>'+
+    '<label class="field">Date<input type="date" id="af-date" value="'+iso(today)+'"></label>'+
+    '<label class="field">Course<input type="text" id="af-course" list="af-courses" value="'+esc(def||"")+'" placeholder="BIO 201"></label>'+courseList("af-courses")+
+    '<label class="field">Type<select id="af-type">'+typeOptions("assignment")+'</select></label>'+
+    '<label class="field">Grade %<input type="number" id="af-weight" min="0" max="100" step="0.5" placeholder="5"></label></div>'+
+    '<div class="actions"><button class="btn primary" data-action="saveitem">Save item</button><button class="btn" data-action="addtoggle">Cancel</button></div></div>';
+}
+function statBlock(label,list,bad){
+  var w=sumW(list);
+  return '<div class="stat'+(bad&&list.length?" bad":"")+'"><span class="lab">'+label+'</span><strong>'+plural(list.length,"item")+'</strong><span class="sub2">'+(w>0?pct(w)+"% of your grade":"No grade attached")+"</span></div>";
+}
+function gradePanel(){
+  if(!state.filter)return "";
+  var c=course(state.filter);
+  if(!c||!c.grading||!c.grading.length)return "";
+  var tot=c.grading.reduce(function(s,g){return s+g.percent},0);
+  return '<div class="panel"><h3 class="ph">How '+esc(c.name)+' is graded</h3><ul class="gl">'+c.grading.map(function(g){
+    return '<li><span>'+esc(g.name)+'</span><span class="gbar"><i style="width:'+Math.min(100,g.percent)+'%;background:'+c.color+'"></i></span><strong>'+pct(g.percent)+'%</strong></li>';
+  }).join("")+"</ul>"+(Math.abs(tot-100)>0.5?'<p class="hint" style="margin-top:10px">These add up to '+pct(tot)+'%, not 100%. Check the syllabus for anything missed.</p>':"")+"</div>";
+}
+function calPanel(){
+  var withTimes=state.courses.filter(function(c){return c.meetingDays&&c.meetingDays.length&&c.meetingTime;});
+  var classRows=withTimes.map(function(c){
+    var url=classRecurUrl(c);
+    if(!url)return "";
+    var dayStr=c.meetingDays.map(function(d){return "UMTWRFS"[d]}).join("");
+    return '<div class="row" style="--c:'+c.color+'"><div class="what"><div class="ttl">'+esc(c.name)+' class</div><div class="meta"><span class="dot" style="background:'+c.color+'"></span><span>Every '+dayStr+', '+fmtTimeAmPm(c.meetingTime.startH,c.meetingTime.startM)+'\u2013'+fmtTimeAmPm(c.meetingTime.endH,c.meetingTime.endM)+'</span></div></div><div class="acts"><a class="mini" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">+ Google (whole term)</a></div></div>';
+  }).join("");
+  return '<div class="panel"><h3 class="ph">Add to your calendar</h3><p class="hint">Use <strong>+ Google</strong> on any item for a one-off add to Google Calendar.'+(caps.dl?" To add everything at once \u2014 due dates and class times together \u2014 download the file below and import it.":"")+"</p>"+
+    (caps.dl?'<div class="actions"><button class="btn primary" data-action="ics">Download .ics (Apple, Outlook, Google)</button><button class="btn" data-action="csv">Download CSV instead</button></div>':"")+
+    (classRows?'<div style="margin-top:16px"><p class="hint" style="margin-bottom:8px">Or add just the class times, one link per course:</p><ul class="list">'+classRows+'</ul></div>':"")+
+    (caps.dl?'<details style="margin-top:14px"><summary>How do I import the .ics file?</summary><p><strong>Apple Calendar:</strong> open the downloaded file, or in the Calendar app choose File, then Import.<br><strong>Outlook:</strong> File, then Open &amp; Export, then Import/Export, then "Import an iCalendar (.ics) file".<br><strong>Google Calendar:</strong> Settings, then Import &amp; export, then choose the file.</p></details>':'<details style="margin-top:14px"><summary>Using Apple Calendar?</summary><p>Apple Calendar can show your Google Calendar. On iPhone or iPad, open Settings, Calendar, Accounts, and add your Google account. On a Mac, open Calendar, Settings, Accounts. Events you add with + Google then appear in Apple Calendar too.</p></details>')+"</div>";
+}
+function renderUpcoming(){
+  if(!state.items.length)return empty();
+  var items=visible();
+  var open=items.filter(function(i){return !i.done}).sort(byDate);
+  var done=items.filter(function(i){return i.done}).sort(function(a,b){return byDate(b,a)});
+  var overdue=open.filter(function(i){return daysFrom(i.date)<0});
+  var soon=open.filter(function(i){var n=daysFrom(i.date);return n>=0&&n<=7});
+  var html='<div class="head"><h2>Coming up</h2><button class="btn" data-action="addtoggle">Add an item</button></div>';
+  if(state.filter){
+    var fc=course(state.filter);
+    if(fc&&fc.meetingDays&&fc.meetingDays.length&&fc.meetingTime){
+      html+='<p class="hint" style="margin:-8px 0 16px;font-size:15px">Meets '+fc.meetingDays.map(function(d){return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d]}).join("/")+", "+fmtTimeAmPm(fc.meetingTime.startH,fc.meetingTime.startM)+"\u2013"+fmtTimeAmPm(fc.meetingTime.endH,fc.meetingTime.endM)+"</p>";
+    }
+  }
+  if(state.addOpen)html+=addForm();
+  html+='<div class="stats">'+statBlock("Overdue",overdue,true)+statBlock("Next 7 days",soon,false)+statBlock("Still to do",open,false)+"</div>";
+  var wDone=sumW(done),wLate=sumW(overdue),wAhead=sumW(open)-wLate,wTot=wDone+wLate+wAhead;
+  if(wTot>0){
+    html+='<div class="stack" role="img" aria-label="Grade weight: '+pct(wDone)+'% done, '+pct(wLate)+'% overdue, '+pct(wAhead)+'% coming up"><i style="width:'+(wDone/wTot*100)+'%;background:var(--ok)"></i><i style="width:'+(wLate/wTot*100)+'%;background:var(--danger)"></i><i style="width:'+(wAhead/wTot*100)+'%;background:var(--muted);opacity:.55"></i></div>'+
+      '<div class="legend"><span><i class="sw" style="background:var(--ok)"></i>Done '+pct(wDone)+'%</span><span><i class="sw" style="background:var(--danger)"></i>Overdue '+pct(wLate)+'%</span><span><i class="sw" style="background:var(--muted);opacity:.55"></i>Coming up '+pct(wAhead)+'%</span></div>';
+  }else html+='<div style="height:14px"></div>';
+  html+=gradePanel();
+  var groups=[["Overdue",function(n){return n<0},true],["Next 7 days",function(n){return n>=0&&n<=7}],["Next 30 days",function(n){return n>7&&n<=30}],["Later",function(n){return n>30}]];
+  var any=false;
+  groups.forEach(function(g){
+    var list=open.filter(function(i){return g[1](daysFrom(i.date))});
+    if(!list.length)return;
+    any=true;
+    var w=sumW(list);
+    html+='<section class="group"><h3 class="gh'+(g[2]?" bad":"")+'">'+g[0]+": "+plural(list.length,"item")+(w>0?", "+pct(w)+"% of your grade":"")+'</h3><ul class="list">'+list.map(row).join("")+"</ul></section>";
+  });
+  if(!any)html+='<p class="hint" style="margin-bottom:24px">Nothing left to do here. Nice.</p>';
+  if(done.length)html+='<section class="group"><h3 class="gh">Done: '+plural(done.length,"item")+'</h3><ul class="list">'+done.map(row).join("")+"</ul></section>";
+  html+=calPanel();
+  return html;
+}
+function renderMonth(){
+  if(!state.items.length)return empty();
+  var y=state.cursor.y,m=state.cursor.m,first=new Date(y,m,1),dim=new Date(y,m+1,0).getDate(),lead=first.getDay();
+  var by={};visible().forEach(function(i){(by[i.date]=by[i.date]||[]).push(i)});
+  var html='<div class="head"><h2>'+MON[m]+" "+y+'</h2><div class="cal-nav"><button class="btn" data-action="prev" aria-label="Previous month">\u2039</button><button class="btn" data-action="thismonth">Today</button><button class="btn" data-action="next" aria-label="Next month">\u203A</button></div></div>';
+  html+='<div class="grid">'+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(function(d){return '<div class="dow">'+d+"</div>"}).join("");
+  for(var k=0;k<lead;k++)html+='<div class="cell blank"></div>';
+  for(var d=1;d<=dim;d++){
+    var s=iso(new Date(y,m,d)),list=(by[s]||[]).slice().sort(byDate);
+    html+='<button class="cell'+(s===iso(today)?" today":"")+(s===state.day?" sel":"")+'" data-action="day" data-date="'+s+'" aria-label="'+fmtDay(s)+", "+plural(list.length,"item")+'"><span class="dn">'+d+"</span>"+
+      list.slice(0,3).map(function(i){var c=course(i.courseId)||{color:"#888"};return '<span class="chip'+(i.done?" d":"")+'" style="--c:'+c.color+'">'+esc(i.title)+"</span>"}).join("")+
+      (list.length>3?'<span class="more">+'+(list.length-3)+" more</span>":"")+"</button>";
+  }
+  html+="</div>";
+  if(state.day){
+    var dl=(by[state.day]||[]).slice().sort(byDate);
+    html+='<h3 class="dayhead">'+fmtDay(state.day)+"</h3>"+(dl.length?'<ul class="list">'+dl.map(row).join("")+"</ul>":'<p class="hint">Nothing due this day.</p>');
+  }
+  return html;
+}
+function renderImport(){
+  var imp=state.imp,busy=!!imp.busy;
+  var html='<div class="head"><h2>Add a syllabus</h2></div><div class="panel"><label class="field">Course name<input type="text" data-imp="course" list="imp-courses" value="'+esc(imp.course)+'" placeholder="BIO 201"></label>'+courseList("imp-courses")+"</div>";
+  if(imp.weekItems&&!imp.found){
+    html+='<div class="panel"><h3 class="ph">This syllabus uses week numbers, not calendar dates</h3><p class="hint">Found '+plural(imp.weekItems.length,"item")+' across a '+plural(imp.weekItems[imp.weekItems.length-1].week,"week")+' schedule. Tell us when the term starts and we\u2019ll work out real dates \u2014 you can still fix any of them after.</p>'+
+      '<div class="fields" style="grid-template-columns:1fr 1fr"><label class="field">First day of class<input type="date" id="wk-start" value="'+esc(imp.termStart||iso(today))+'"></label><label class="field">Meeting days (optional)<input type="text" id="wk-days" value="'+esc(imp.meetingDays?imp.meetingDays.map(function(d){return "UMTWRFS"[d]}).join(""):"")+'" placeholder="e.g. MWF or TR"></label></div>'+
+      (imp.meetingTime?'<p class="hint" style="margin-top:10px">Class time found: '+fmtTimeAmPm(imp.meetingTime.startH,imp.meetingTime.startM)+'\u2013'+fmtTimeAmPm(imp.meetingTime.endH,imp.meetingTime.endM)+'. Calendar events will use this time instead of all-day.</p>':'<p class="hint" style="margin-top:10px">No class time found \u2014 events will be added as all-day.</p>')+
+      '<div class="actions"><button class="btn primary" data-action="calcweeks">Work out the dates</button><button class="btn" data-action="backedit">Edit syllabus text</button></div></div>';
+  }else if(!imp.found){
+    var inBatch=imp.queueTotal>1;
+    html+='<div class="panel">'+(inBatch?'<p class="hint" style="margin-bottom:10px">Syllabus '+imp.queuePos+' of '+imp.queueTotal+'</p>':"")+
+      '<div class="drop" data-drop><label class="btn primary"><input type="file" class="sr" id="pdfin" accept="application/pdf,.pdf" multiple'+(busy?" disabled":"")+'>Upload syllabus PDF'+(inBatch?"":"s")+'</label><p>or drop up to '+MAX_BATCH+' PDFs here</p></div>'+
+      '<div class="status" role="status">'+(imp.busy==="pdf"?"Reading "+esc(imp.fileName)+(inBatch?" ("+imp.queuePos+" of "+imp.queueTotal+")":"")+"\u2026":imp.busy==="ai"?'Claude is reading your syllabus\u2026 <button class="btn" data-action="stopai">Stop</button>':(imp.fileName?"Read "+esc(imp.fileName)+". The text is below.":""))+"</div>"+
+      '<label class="field">Syllabus text (filled in from your PDF, or paste it)<textarea data-imp="text" placeholder="Paste the schedule or the whole syllabus here.">'+esc(imp.text)+'</textarea></label>'+
+      '<div class="actions"><button class="btn primary" data-action="find"'+(busy?" disabled":"")+'>Find dates</button>'+
+      (caps.ai?'<button class="btn" data-action="ai"'+(busy?" disabled":"")+' title="Uses your Claude account to read messy syllabi more accurately">Read with Claude</button>':"")+
+      (inBatch?'<button class="btn" data-action="skipfile"'+(busy?" disabled":"")+'>Skip this one</button>':'<button class="btn" data-action="sample"'+(busy?" disabled":"")+'>Use a sample syllabus</button>')+'</div></div>';
+  }else{
+    var n=imp.found.filter(function(f){return f.checked}).length;
+    html+='<div class="impgrid"><div><h3>Your syllabus'+(imp.queueTotal>1?' <span class="hint" style="font-weight:500">(syllabus '+imp.queuePos+' of '+imp.queueTotal+')</span>':"")+'</h3><div class="paper">'+imp.html+'</div></div><div><h3>Dates found: '+imp.found.length+(imp.src==="claude"?" (read by Claude, please check them)":imp.src==="week"?" (worked out from week numbers, please check them)":"")+'</h3><ul class="flist">'+
+      imp.found.map(function(f,k){
+        return '<li class="frow"><label><input type="checkbox" data-found="checked" data-k="'+k+'"'+(f.checked?" checked":"")+'><span class="sr">Include this date</span></label><input type="text" data-found="title" data-k="'+k+'" value="'+esc(f.title)+'" aria-label="Title"><div class="sub"><input type="date" data-found="date" data-k="'+k+'" value="'+f.date+'" aria-label="Date"><select data-found="type" data-k="'+k+'" aria-label="Type">'+typeOptions(f.type)+'</select><label class="pct"><input type="number" min="0" max="100" step="0.5" data-found="weight" data-k="'+k+'" value="'+(f.weight==null?"":f.weight)+'" aria-label="Percent of final grade" placeholder="0"> % of grade</label></div></li>';
+      }).join("")+'</ul>';
+    if(imp.grading.length){
+      var tot=imp.grading.reduce(function(s,g){return s+g.percent},0);
+      html+='<div class="panel" style="margin-top:16px"><h3 class="ph">Grading breakdown found</h3><ul class="gl">'+imp.grading.map(function(g){return '<li><span>'+esc(g.name)+'</span><span class="gbar"><i style="width:'+Math.min(100,g.percent)+'%;background:var(--accent)"></i></span><strong>'+pct(g.percent)+'%</strong></li>'}).join("")+'</ul><p class="hint" style="margin-top:10px">Total: '+pct(tot)+'%. Each category\u2019s weight is split across its dates above. Edit any number that looks off.</p></div>';
+    }else{
+      html+='<p class="hint" style="margin-top:12px">No grading breakdown found. You can type each item\u2019s % of grade above, or add it later.</p>';
+    }
+    html+='<div class="actions"><button class="btn primary" id="addBtn" data-action="addfound"'+(n?"":" disabled")+">Add "+n+" "+(n===1?"date":"dates")+'</button><button class="btn" data-action="backedit">Edit syllabus text</button></div></div></div>';
+  }
+  return html;
+}
+function render(){
+  document.querySelectorAll(".tab").forEach(function(b){
+    if(b.dataset.view===state.view)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current");
+  });
+  renderCourses();
+  var body=state.view==="month"?renderMonth():state.view==="import"?renderImport():renderUpcoming();
+  $("#main").innerHTML=(state.notice?'<p class="notice'+(state.noticeErr?" err":"")+'" role="status">'+esc(state.notice)+"</p>":"")+body;
+  if(state.editW){var w=document.querySelector("[data-wid]");if(w){w.focus();w.select()}}
+}
+function say(msg,err){state.notice=msg;state.noticeErr=!!err}
+function runFind(){
+  var imp=state.imp;
+  imp.weekItems=null;
+  if(!imp.text.trim()){say("Upload a PDF or paste some syllabus text first.",true);return}
+  imp.meetingDays=parseMeetingDays(imp.text);
+  imp.meetingTime=parseMeetingTime(imp.text);
+  var r=findDates(imp.text);
+  if(r.items.length){
+    imp.found=r.items;imp.html=r.html;imp.grading=r.grading;imp.src="pattern";
+    return;
+  }
+  var weekItems=findWeekSchedule(imp.text);
+  if(weekItems.length){
+    imp.weekItems=weekItems;
+    imp.grading=parseGrading(imp.text);
+    imp.termStart=iso(today);
+    imp.found=null;
+    say("This syllabus lists weeks instead of calendar dates. Enter your first day of class below.");
+    return;
+  }
+  say("No dates found. Dates like \u201COct 15\u201D, \u201COctober 15, 2026\u201D, \u201C10/15\u201D, or a \u201CWeek 1, Week 2\u2026\u201D table work.",true);
+}
+function calcWeekDates(){
+  var imp=state.imp;
+  var startEl=$("#wk-start");
+  var start=startEl?startEl.value:"";
+  if(!start){say("Enter the date of your first class.",true);return}
+  var daysEl=$("#wk-days");
+  var days=imp.meetingDays;
+  if(daysEl&&daysEl.value.trim()){
+    var parsed=daysFromCode(daysEl.value);
+    if(parsed)days=parsed;
+  }
+  imp.meetingDays=days;
+  imp.termStart=start;
+  imp.found=imp.weekItems.map(function(w){
+    return {title:w.title+" (Week "+w.week+")",date:weekToDate(start,w.week,days),type:w.type,weight:null,checked:true};
+  });
+  assignWeights(imp.found,imp.grading);
+  imp.html=esc(imp.text);
+  imp.src="week";
+}
+function updateCount(){
+  var b=$("#addBtn");if(!b)return;
+  var n=state.imp.found.filter(function(f){return f.checked}).length;
+  b.textContent="Add "+n+" "+(n===1?"date":"dates");b.disabled=!n;
+}
+function commitWeight(el){
+  var it=state.items.find(function(i){return i.id===el.dataset.wid});
+  if(it){var v=el.value===""?null:Number(el.value);it.weight=(v!=null&&v>=0&&v<=100)?v:null;save()}
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-action]");if(!t)return;
+  var a=t.dataset.action,id=t.dataset.id;
+  if(a==="editw"&&state.editW===id)return;
+  state.notice="";
+  if(a!=="remove")state.armed=null;
+  if(a!=="editw")state.editW=null;
+  if(a==="tab"){state.view=t.dataset.view}
+  else if(a==="filter"){state.filter=state.filter===id?null:id}
+  else if(a==="clear"){state.filter=null}
+  else if(a==="recolor"){
+    var c0=course(id);
+    if(c0){var k0=COLORS.indexOf(c0.color);c0.color=COLORS[(k0+1)%COLORS.length];save()}
+  }
+  else if(a==="remove"){
+    if(state.armed===id){
+      state.items=state.items.filter(function(i){return i.courseId!==id});
+      state.courses=state.courses.filter(function(c){return c.id!==id});
+      if(state.filter===id)state.filter=null;
+      state.armed=null;save();
+    }else state.armed=id;
+  }
+  else if(a==="toggle"){var it=state.items.find(function(i){return i.id===id});if(it){it.done=!it.done;save()}}
+  else if(a==="del"){state.items=state.items.filter(function(i){return i.id!==id});save()}
+  else if(a==="editw"){state.editW=id}
+  else if(a==="addtoggle"){state.addOpen=!state.addOpen}
+  else if(a==="saveitem"){
+    var title=$("#af-title").value.trim(),date=$("#af-date").value,cn=$("#af-course").value,type=$("#af-type").value,wv=$("#af-weight").value;
+    if(!title||!date){say("Add a title and a date to save the item.",true)}
+    else{
+      var c=resolveCourse(cn);
+      var wn=wv===""?null:Number(wv);
+      state.items.push({id:uid(),courseId:c.id,title:title,date:date,type:type,weight:(wn!=null&&wn>=0&&wn<=100)?wn:null,done:false});
+      state.addOpen=false;save();say("Saved \u201C"+title+"\u201D.");
+    }
+  }
+  else if(a==="prev"){state.cursor.m--;if(state.cursor.m<0){state.cursor.m=11;state.cursor.y--}}
+  else if(a==="next"){state.cursor.m++;if(state.cursor.m>11){state.cursor.m=0;state.cursor.y++}}
+  else if(a==="thismonth"){state.cursor={y:today.getFullYear(),m:today.getMonth()};state.day=iso(today)}
+  else if(a==="day"){state.day=t.dataset.date}
+  else if(a==="find"){runFind()}
+  else if(a==="calcweeks"){calcWeekDates()}
+  else if(a==="ai"){readWithClaude();return}
+  else if(a==="stopai"){if(aiCtl)aiCtl.abort();return}
+  else if(a==="csv"){exportCsv().then(render);return}
+  else if(a==="ics"){exportIcs().then(render);return}
+  else if(a==="sample"){state.view="import";state.imp.course=state.imp.course||"BIO 201";state.imp.text=makeSample();state.imp.fileName="";runFind()}
+  else if(a==="backedit"){state.imp.found=null;state.imp.weekItems=null}
+  else if(a==="skipfile"){
+    if(!advanceQueue()){state.view="upcoming";state.filter=null}
+    render();return;
+  }
+  else if(a==="addfound"){
+    var ok=state.imp.found.filter(function(f){return f.checked&&f.title.trim()&&f.date});
+    if(!ok.length){say("Pick at least one date to add.",true)}
+    else{
+      var cc=resolveCourse(state.imp.course);
+      if(state.imp.grading.length)cc.grading=state.imp.grading;
+      if(state.imp.meetingTime)cc.meetingTime=state.imp.meetingTime;
+      if(state.imp.termStart)cc.termStart=state.imp.termStart;
+      if(state.imp.meetingDays)cc.meetingDays=state.imp.meetingDays;
+      ok.forEach(function(f){state.items.push({id:uid(),courseId:cc.id,title:f.title.trim(),date:f.date,type:f.type,weight:(f.weight!=null&&f.weight>0)?f.weight:null,done:false})});
+      save();
+      var addedMsg="Added "+plural(ok.length,"date")+" to "+cc.name+".";
+      if(advanceQueue()){
+        say(addedMsg+" Loading the next syllabus\u2026");
+      }else{
+        state.imp={course:"",text:"",found:null,html:"",grading:[],fileName:"",busy:null,src:"",weekItems:null,meetingDays:null,meetingTime:null,termStart:"",queue:[],queuePos:0,queueTotal:0};
+        state.view="upcoming";state.filter=null;
+        say(addedMsg);
+      }
+    }
+  }
+  render();
+});
+function onEdit(e){
+  var t=e.target;
+  if(!t.dataset)return;
+  if(t.id==="pdfin"&&t.files&&t.files.length){var fl=t.files;t.value="";startQueue(fl);return}
+  if(t.dataset.imp){state.imp[t.dataset.imp]=t.value}
+  else if(t.dataset.found){
+    var f2=state.imp.found[+t.dataset.k],key=t.dataset.found;
+    if(!f2)return;
+    if(key==="checked"){f2.checked=t.checked;updateCount()}
+    else if(key==="weight"){f2.weight=t.value===""?null:Number(t.value)}
+    else f2[key]=t.value;
+  }
+}
+document.addEventListener("input",onEdit);
+document.addEventListener("change",onEdit);
+document.addEventListener("focusout",function(e){
+  if(e.target.dataset&&e.target.dataset.wid){commitWeight(e.target);state.editW=null}
+});
+document.addEventListener("keydown",function(e){
+  var t=e.target;
+  if(e.key==="Enter"&&t.id&&t.id.indexOf("af-")===0){var b=document.querySelector('[data-action="saveitem"]');if(b)b.click()}
+  if(t.dataset&&t.dataset.wid){
+    if(e.key==="Enter"){commitWeight(t);state.editW=null;render()}
+    else if(e.key==="Escape"){state.editW=null;render()}
+  }
+});
+document.addEventListener("dragover",function(e){if(e.target.closest&&e.target.closest("[data-drop]")){e.preventDefault();e.target.closest("[data-drop]").classList.add("over")}});
+document.addEventListener("dragleave",function(e){var z=e.target.closest&&e.target.closest("[data-drop]");if(z)z.classList.remove("over")});
+document.addEventListener("drop",function(e){
+  var z=e.target.closest&&e.target.closest("[data-drop]");
+  if(!z)return;
+  e.preventDefault();z.classList.remove("over");
+  var fl=e.dataTransfer&&e.dataTransfer.files;
+  if(fl&&fl.length)startQueue(fl);
+});
+window.addEventListener("dragover",function(e){e.preventDefault()});
+window.addEventListener("drop",function(e){e.preventDefault()});
+
+render();
+if(window.claude&&typeof window.claude.use==="function"){
+  window.claude.use("downloads").then(function(d){if(d){caps.dl=d;render()}}).catch(function(){});
+  window.claude.use("sample").then(function(s){if(s){caps.ai=s;render()}}).catch(function(){});
+}
+})();
+</script>
+</body>
+</html>
