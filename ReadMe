@@ -1,1 +1,110 @@
+# Syllabus Desk — server (Phase 1: Canvas)
 
+Backend for the connected version of Syllabus Desk, implementing Phase 1
+of `syllabus-desk-connected-spec.md`: Canvas OAuth, a periodic sync job,
+and the API the frontend (the existing browser prototype, or a rebuild of
+it) would call. Google Classroom and D2L are modeled in the schema but
+not yet wired up — see "Adding a platform" below.
+
+## Quick start
+
+```bash
+npm install
+cp .env.example .env
+# fill in .env — see "Registering with Canvas" below for the OAuth values,
+# and generate a token encryption key:
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
+npx prisma migrate dev --name init   # creates the Postgres tables
+npm run dev                           # starts the API on :4000
+```
+
+Requires a running Postgres instance; `DATABASE_URL` in `.env` points at it.
+
+## Registering with Canvas
+
+Canvas is self-hosted per school, so a Developer Key has to be issued by
+(or on behalf of) each institution:
+
+1. An admin at the school opens **Admin > Developer Keys** in Canvas and
+   creates a new key, with the redirect URI set to your
+   `CANVAS_REDIRECT_URI` (`http://localhost:4000/auth/canvas/callback`
+   for local dev).
+2. That gives you the `CANVAS_CLIENT_ID` / `CANVAS_CLIENT_SECRET` for
+   *that school*. A student at a different school needs a key issued by
+   their school, unless you go through Instructure's own developer
+   program for broader access.
+3. Full reference: https://canvas.instructure.com/doc/api/file.oauth.html
+
+For local testing without touching a real school's Canvas, Canvas has a
+free developer/test instance you can request, or you can use a personal
+Canvas trial account.
+
+## Trying it end to end locally
+
+```bash
+# 1. Log in (dev stub — swap for real auth before shipping, see SECURITY.md)
+curl -X POST localhost:4000/auth/dev-login -H 'Content-Type: application/json' \
+  -d '{"email":"you@example.com"}' -c cookies.txt
+
+# 2. Connect Canvas — open this URL in a browser (cookies won't carry over
+#    from curl), logged in as the same dev-login session:
+#    http://localhost:4000/auth/canvas/start?institutionUrl=https://yourschool.instructure.com
+
+# 3. Trigger a sync manually instead of waiting for the cron job:
+npm run sync:canvas:once
+
+# 4. See what landed:
+curl localhost:4000/items -b cookies.txt
+curl localhost:4000/items/changes -b cookies.txt
+```
+
+## Project layout
+
+```
+src/
+  index.ts              Server entrypoint — security, sessions, routes, scheduler
+  db.ts                 Shared Prisma client
+  types.ts              Shared types + Canvas API response shapes
+  lib/crypto.ts          AES-256-GCM encrypt/decrypt for tokens at rest
+  middleware/security.ts helmet, rate limiting, error handler
+  auth/canvas.ts          Canvas OAuth2 (authorize URL, token exchange/refresh)
+  routes/
+    auth.ts               Dev login stub + Canvas OAuth start/callback
+    connections.ts         List/remove connected platforms
+    courses.ts              CRUD for courses (manual + synced)
+    items.ts                 The Upcoming/Overdue/Updates data the frontend renders
+    privacy.ts                Data export + account deletion
+  sync/
+    canvasClient.ts          Canvas API calls, with token refresh-on-401
+    diff.ts                   Pure function: old item + new data -> what changed
+    canvasSync.ts              Pulls courses/assignments/weights, upserts, diffs
+    scheduler.ts                node-cron job, every 20 min (spec: 15-30 min)
+    runOnce.ts                   `npm run sync:canvas:once` for manual testing
+prisma/schema.prisma      Data model (spec section 3)
+SECURITY.md              What's protected, and what's stubbed and needs
+                          real work before this touches real student data
+```
+
+## Adding a platform (Classroom or D2L)
+
+The schema (`prisma/schema.prisma`) and `ChangeEvent`/diffing pattern
+already generalize. To add one:
+
+1. Add an `auth/<platform>.ts` mirroring `auth/canvas.ts`'s OAuth flow.
+2. Add a `sync/<platform>Client.ts` + `sync/<platform>Sync.ts` mirroring
+   the Canvas pair — same upsert-then-diff shape, different API calls.
+3. Register the new routes in `routes/auth.ts` and add the new job to
+   `sync/scheduler.ts`.
+4. Google Classroom in particular: prefer its Pub/Sub push notifications
+   over polling once this is real (spec section 4) — polling is fine to
+   start with, since it works the same way Canvas's does here.
+
+## Known gaps (see SECURITY.md for the security-specific ones)
+
+- No frontend included — this is the API only. The existing browser
+  prototype's UI can be pointed at these endpoints, or rebuilt.
+- No tests yet. `sync/diff.ts` is written as a pure function specifically
+  so it's easy to unit test first.
+- The 15-min-before-deadline tighter poll interval mentioned in the spec
+  isn't implemented — the scheduler runs on a flat 20-minute cadence.
