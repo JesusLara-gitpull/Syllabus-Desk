@@ -825,8 +825,7 @@ function row(i){
     '<div class="acts"><a class="mini" href="'+esc(gcalUrl(i))+'" target="_blank" rel="noopener noreferrer" aria-label="Add '+esc(i.title)+' to Google Calendar">+ Google</a><button class="x" data-action="del" data-id="'+i.id+'" aria-label="Delete '+esc(i.title)+'">\u00D7</button></div></li>';
 }
 function demoPaper(){
-  return '<div class="paper demo" aria-hidden="true">Quizzes: 10%\n<mark style="--i:0">Oct 15</mark>: Midterm exam\n<mark style="--i:1">Nov 3</mark> - Problem set 4 due\nFinal exam on <mark style="--i:2">Dec 10</mark>, 8:00 am</div>';
-}
+return '<div class="paper demo" aria-hidden="true">Quizzes: 10%\n<mark style="--i:0; background-color: rgba(218, 165, 32, 0.35); color: inherit;">Oct 15</mark>: Midterm exam\n<mark style="--i:1; background-color: rgba(218, 165, 32, 0.35); color: inherit;">Nov 3</mark> - Problem set 4 due\nFinal exam on <mark style="--i:2; background-color: rgba(218, 165, 32, 0.35); color: inherit;">Dec 10</mark>, 8:00 am</div>'}
 function empty(){
   return '<div class="empty">'+demoPaper()+'<h2>No dates yet</h2><p>Upload a syllabus PDF and Syllabus Desk pulls out every date and how much each one counts toward your grade. You check the list, then it all lands here, sorted by what\u2019s due first.</p><div class="actions"><button class="btn primary" data-action="tab" data-view="import">Add a syllabus</button><button class="btn" data-action="sample">Try a sample syllabus</button></div></div>';
 }
